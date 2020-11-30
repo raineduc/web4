@@ -3,9 +3,12 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { merge } = require('webpack-merge');
 
-module.exports = {
-  entry: './index.js',
+const devConfig = require('./webpack-config/dev');
+const { modernConfig, legacyConfig } = require('./webpack-config/prod');
+
+const commonConfig = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].[chunkhash:8].js'
@@ -15,8 +18,14 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
-        loader: "babel-loader",
-        options: { presets: ["@babel/env"] }
+        use: [
+          {
+            loader: "babel-loader",
+            options: { 
+              presets: ["@babel/env", "@babel/preset-react"],
+            }
+          }
+        ]
       },
       {
         test: /\.css$/,
@@ -25,20 +34,30 @@ module.exports = {
     ]
   },
   resolve: { extensions: ["*", ".js", ".jsx"] },
-  devServer: {
-    contentBase: path.join(__dirname, "dist/"),
-    port: 3000,
-    publicPath: "http://localhost:3000/",
-    hotOnly: true
-  },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './index.html'
+      template: './src/index.html'
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[chunkhash:8].css',
     })
   ]
+}
+
+const clean = {
+  plugins: [new CleanWebpackPlugin()]
+}
+
+module.exports = (env, argv) => {
+  let config;
+  if (argv.mode === 'development') {
+    return merge([commonConfig, devConfig, clean]);
+  }
+  
+  if (argv.mode === 'production') {
+    return [
+      merge([commonConfig, modernConfig]),
+      merge([commonConfig, legacyConfig]),
+    ];
+  }
 }
