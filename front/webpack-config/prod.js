@@ -19,6 +19,10 @@ const modernConfig = {
                   {
                     modules: false,
                     useBuiltIns: "usage",
+                    corejs: {
+                      version: 3,
+                      proposals: true,
+                    },
                     targets: {
                       browsers: [
                         "Chrome >= 60",

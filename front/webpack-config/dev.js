@@ -18,6 +18,10 @@ module.exports = {
               {
                 modules: false,
                 useBuiltIns: 'usage',
+                corejs: {
+                  version: 3,
+                  proposals: true,
+                },
                 targets: {
                   browsers: ['last 2 versions']
                 }
