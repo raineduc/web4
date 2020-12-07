@@ -6,6 +6,7 @@ import logo from "../pictures/logo_light.png";
 
 const LabInfoValue = ({ children }) => <Text as="span" color="cyan.100" fontWeight="bold">{children}</Text>;
 
+
 const LabInfo = () => (
   <Box fontSize="0.75em">
     <Box>Группа: <LabInfoValue>P3212</LabInfoValue></Box>
@@ -19,7 +20,7 @@ const Logo = () => (
       <Image src={logo} alt="logo" boxSize="9.5rem" objectFit="contain" />
       <Box ml="1">
         <Text lineHeight="short">Лабораторная 4</Text>
-        <Text fontSize={{ base: "0.75em", md: "0.65em" }} lineHeight="none" position="absolute">Вариант: <LabInfoValue>31772</LabInfoValue></Text>
+        <Text fontSize={{ base: "0.75em", md: "0.65em" }}  lineHeight="none" position="absolute">Вариант: <LabInfoValue>31772</LabInfoValue></Text>
       </Box>
     </Flex>
   </Box>

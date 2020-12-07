@@ -40,6 +40,7 @@ module.exports = {
     publicPath: "http://localhost:3000/",
     hotOnly: true
   },
+  devtool: 'eval-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
   ]
