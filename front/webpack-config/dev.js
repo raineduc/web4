@@ -10,11 +10,11 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
-        loader: "babel-loader",
-        options: { 
+        loader: 'babel-loader',
+        options: {
           presets: [
             [
-              "@babel/env",
+              '@babel/env',
               {
                 modules: false,
                 useBuiltIns: 'usage',
@@ -23,25 +23,26 @@ module.exports = {
                   proposals: true,
                 },
                 targets: {
-                  browsers: ['last 2 versions']
-                }
-              }
+                  browsers: ['last 2 versions'],
+                },
+              },
             ],
-            "@babel/preset-react"
+            '@babel/preset-react',
           ],
-          plugins: ["react-hot-loader/babel"]  
+          plugins: ['react-hot-loader/babel'],
         },
-      }
-    ]
+      },
+    ],
   },
   devServer: {
-    contentBase: path.join(__dirname, "dist/"),
+    contentBase: path.join(__dirname, 'dist/'),
     port: 3000,
-    publicPath: "http://localhost:3000/",
-    hotOnly: true
+    publicPath: 'http://localhost:3000/',
+    hotOnly: true,
+    historyApiFallback: true,
   },
   devtool: 'eval-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-  ]
-}
+  ],
+};

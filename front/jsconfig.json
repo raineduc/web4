@@ -3,7 +3,9 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "$utils/*": ["src/utils/*"], 
+      "$utils/*": ["src/utils/*"],
+      "$ui/*": ["src/ui/*"],
+      "$api/*": ["src/api/*"]
     },
   },
 }

@@ -1,15 +1,14 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { logUser } from "..";
-import { validateMessages } from "..";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import {
   FormControl,
   FormLabel,
   Input,
   Button,
   FormErrorMessage,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
+import { logUser, validateMessages } from '..';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -24,7 +23,7 @@ export const LoginForm = () => {
       <FormControl
         id="login-form_login"
         isRequired
-        isInvalid={errors.login || (loginError && loginError.field === "login")}
+        isInvalid={errors.login || (loginError && loginError.field === 'login')}
       >
         <FormLabel>Логин</FormLabel>
         <Input
@@ -34,8 +33,8 @@ export const LoginForm = () => {
           focusBorderColor="teal.400"
         />
         <FormErrorMessage>
-          {(errors.login && errors.login.message) ||
-            (loginError && loginError.error)}
+          {(errors.login && errors.login.message)
+            || (loginError && loginError.error)}
         </FormErrorMessage>
       </FormControl>
       <FormControl
@@ -43,7 +42,7 @@ export const LoginForm = () => {
         isRequired
         mt="5"
         isInvalid={
-          errors.password || (loginError && loginError.field === "password")
+          errors.password || (loginError && loginError.field === 'password')
         }
       >
         <FormLabel>Пароль</FormLabel>
@@ -55,8 +54,8 @@ export const LoginForm = () => {
           focusBorderColor="teal.400"
         />
         <FormErrorMessage>
-          {(errors.password && errors.password.message) ||
-            (loginError && loginError.error)}
+          {(errors.password && errors.password.message)
+            || (loginError && loginError.error)}
         </FormErrorMessage>
       </FormControl>
       <Button type="submit" mt="5" colorScheme="teal">

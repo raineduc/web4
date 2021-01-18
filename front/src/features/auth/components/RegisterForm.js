@@ -1,20 +1,19 @@
-import React from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { useForm } from "react-hook-form";
-import { validateMessages } from "..";
-import { registerUser } from "..";
+import React from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import {
   FormControl,
   FormLabel,
   Input,
   Button,
   FormErrorMessage,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
+import { validateMessages, registerUser } from '..';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit, errors } = useForm();
-  const registerError = useSelector(state => state.auth.registerError, shallowEqual);
+  const registerError = useSelector((state) => state.auth.registerError, shallowEqual);
   const onSubmit = (data) => {
     dispatch(registerUser(data));
   };
@@ -34,7 +33,7 @@ export const RegisterForm = () => {
           focusBorderColor="teal.400"
         />
         <FormErrorMessage>
-          {errors.login && errors.login.message || (registerError && registerError.error)}
+          {(errors.login && errors.login.message) || (registerError && registerError.error)}
         </FormErrorMessage>
       </FormControl>
       <FormControl
@@ -56,7 +55,7 @@ export const RegisterForm = () => {
           focusBorderColor="teal.400"
         />
         <FormErrorMessage>
-          {errors.password && errors.password.message || (registerError && registerError.error)}
+          {(errors.password && errors.password.message) || (registerError && registerError.error)}
         </FormErrorMessage>
       </FormControl>
       <Button type="submit" mt="5" colorScheme="teal">

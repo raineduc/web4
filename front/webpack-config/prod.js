@@ -2,7 +2,7 @@ const WebpackModernBuildPlugin = require('webpack-modern-build-plugin');
 
 const modernConfig = {
   entry: {
-    modern: "./src/index.js",
+    modern: './src/index.js',
   },
   module: {
     rules: [
@@ -11,30 +11,30 @@ const modernConfig = {
         exclude: /(node_modules|bower_components)/,
         use: [
           {
-            loader: "babel-loader",
+            loader: 'babel-loader',
             options: {
               presets: [
                 [
-                  "@babel/env",
+                  '@babel/env',
                   {
                     modules: false,
-                    useBuiltIns: "usage",
+                    useBuiltIns: 'usage',
                     corejs: {
                       version: 3,
                       proposals: true,
                     },
                     targets: {
                       browsers: [
-                        "Chrome >= 60",
-                        "Safari >= 10.1",
-                        "iOS >= 10.3",
-                        "Firefox >= 54",
-                        "Edge >= 15",
+                        'Chrome >= 60',
+                        'Safari >= 10.1',
+                        'iOS >= 10.3',
+                        'Firefox >= 54',
+                        'Edge >= 15',
                       ],
                     },
                   },
                 ],
-                "@babel/preset-react"
+                '@babel/preset-react',
               ],
             },
           },
@@ -46,12 +46,12 @@ const modernConfig = {
     new WebpackModernBuildPlugin({
       mode: 'modern',
     }),
-  ]
+  ],
 };
 
 const legacyConfig = {
   entry: {
-    legacy: "./src/index.js",
+    legacy: './src/index.js',
   },
   module: {
     rules: [
@@ -60,20 +60,20 @@ const legacyConfig = {
         exclude: /(node_modules|bower_components)/,
         use: [
           {
-            loader: "babel-loader",
+            loader: 'babel-loader',
             options: {
               presets: [
                 [
-                  "@babel/env",
+                  '@babel/env',
                   {
                     modules: false,
-                    useBuiltIns: "usage",
+                    useBuiltIns: 'usage',
                     targets: {
-                      browsers: ["> 1%", "last 2 versions", "Firefox ESR"],
+                      browsers: ['> 1%', 'last 2 versions', 'Firefox ESR'],
                     },
                   },
                 ],
-                "@babel/preset-react"
+                '@babel/preset-react',
               ],
             },
           },
@@ -85,7 +85,7 @@ const legacyConfig = {
     new WebpackModernBuildPlugin({
       mode: 'legacy',
     }),
-  ]
+  ],
 };
 
 module.exports = { modernConfig, legacyConfig };
