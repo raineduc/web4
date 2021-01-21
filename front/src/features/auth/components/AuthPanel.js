@@ -1,7 +1,9 @@
-import React from "react";
-import { Tabs, TabList, TabPanel, Tab, TabPanels } from "@chakra-ui/react";
-import { RegisterForm } from "../features/auth/components/RegisterForm";
-import { LoginForm } from "../features/auth/components/LoginForm";
+import React from 'react';
+import {
+  Tabs, TabList, TabPanel, Tab, TabPanels,
+} from '@chakra-ui/react';
+import { RegisterForm } from './RegisterForm';
+import { LoginForm } from './LoginForm';
 
 export const AuthPanel = () => (
   <Tabs

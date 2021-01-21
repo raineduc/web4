@@ -1,7 +1,6 @@
 /**
- * 
- * @param {Array.<String>} actionTypes 
+ *
+ * @param {Array.<String>} actionTypes
  */
-export const multipleActionTypeMatcher = (actionTypes) => action => {
-  return actionTypes.includes(action.type);
-};
+export const multipleActionTypeMatcher = (actionTypes) => (action) =>
+  actionTypes.some((actionType) => actionType.type === action.type);

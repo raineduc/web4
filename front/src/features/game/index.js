@@ -1,3 +1,4 @@
 export { GameForm } from './components/GameForm';
 export { GameInteractions } from './components/GameInteractions';
-export { gameSlice, sendHit } from './logic/game';
+export { HitResults } from './components/HitResults';
+export { gameReducer, sendHit } from './logic/game';

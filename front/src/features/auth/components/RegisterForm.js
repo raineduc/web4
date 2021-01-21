@@ -8,7 +8,8 @@ import {
   Button,
   FormErrorMessage,
 } from '@chakra-ui/react';
-import { validateMessages, registerUser } from '..';
+import { validateMessages } from '../logic/validate-messages';
+import { registerUser } from '../logic/auth';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();

@@ -1,15 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Container } from '@chakra-ui/react';
-import { Header } from '../components/Header';
-import { AuthPanel } from '../components/AuthPanel';
+import { Header } from '../features/common/components/Header';
+import { AuthPanel, IfLoggedIn } from '../features/auth';
 
-export default () => (
+const HomePage = () => (
   <>
     <Header />
-    <Container maxW="lg" mt="16">
+    <Container maxW="1024px" mt="16">
       <AuthPanel />
-      <Link to="/game">dsadas</Link>
     </Container>
   </>
+);
+
+export default () => (
+  <IfLoggedIn
+    fallback={<HomePage />}
+    renderOnLoading={<div>Загрузка...</div>}
+  >
+    <Redirect to="/game" />
+  </IfLoggedIn>
 );
