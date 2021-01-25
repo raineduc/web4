@@ -56,7 +56,7 @@ export const GameForm = () => {
         <GameListBox
           options={xValues}
           value={watchXCoord}
-          onChange={(e) => setValue('x-coord', parseFloat(e.value, 10), { shouldValidate: true })}
+          onChange={(e) => setValue('x-coord', e.value && parseFloat(e.value, 10), { shouldValidate: true })}
         />
         <FormErrorMessage>
           {(errors['x-coord'] && errors['x-coord'].message)
@@ -92,7 +92,7 @@ export const GameForm = () => {
         <GameListBox
           options={radiusValues}
           value={watchRadius}
-          onChange={(e) => setValue('radius', parseFloat(e.value, 10), { shouldValidate: true })}
+          onChange={(e) => setValue('radius', e.value && parseFloat(e.value, 10), { shouldValidate: true })}
         />
         <FormErrorMessage>
           {(errors.radius && errors.radius.message)

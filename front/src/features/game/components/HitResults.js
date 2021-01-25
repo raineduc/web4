@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import {
-  VStack, Table, Thead, Tbody, Tr, Th, Td,
+  VStack, Flex, Table, Thead, Tbody, Tr, Th, Td, Button,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { Paginator } from '$ui/components/Paginator';
-import { getHits } from '../logic/game';
+import { getHits, clearHits } from '../logic/game';
 
 const HitParam = styled(Td)`
   padding-top: 0.5rem;
@@ -45,7 +45,10 @@ export const HitResults = () => {
           ))}
         </Tbody>
       </Table>
-      <Paginator pageCount={pageCount} pageRange={10} onPageChange={(page) => dispatch(getHits(page))} />
+      <Flex alignItems="center" position="relative">
+        <Paginator pageCount={pageCount} pageRange={10} onPageChange={(page) => dispatch(getHits(page))} />
+        <Button position="absolute" left="100%" ml="10px" colorScheme="teal" variant="outline" onClick={() => dispatch(clearHits())}>Очистить</Button>
+      </Flex>
     </VStack>
   );
 };

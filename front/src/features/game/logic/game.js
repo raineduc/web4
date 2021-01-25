@@ -1,5 +1,6 @@
 import { createAction, createAsyncThunk, createReducer } from '@reduxjs/toolkit';
-import { sendHit as sendHitApi, getUserHits } from '$api/game';
+import { sendHit as sendHitApi, getUserHits, clearUserHits } from '$api/game';
+import { multipleActionTypeMatcher } from '$utils/redux/multiple-action-type-matcher';
 
 const initialState = {
   requestError: null,
@@ -49,6 +50,13 @@ export const hitArea = createAsyncThunk('game/send', async (data, thunkApi) => {
   return hit;
 });
 
+export const clearHits = createAsyncThunk('game/clear', async () => {
+  const response = await clearUserHits();
+  if (!response.ok) {
+    throw new Error('Ошибка при запросе');
+  }
+});
+
 export const gameReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changePage, (state, action) => {
@@ -81,7 +89,12 @@ export const gameReducer = createReducer(initialState, (builder) => {
         state.pageCount = Math.ceil(totalCount / state.hitsLimit) || 1;
       }
     })
-    .addCase(getHits.rejected, (state) => {
+    .addCase(clearHits.fulfilled, (state, action) => {
+      state.requestedHits = [];
+      state.currentPage = 1;
+      state.pageCount = 1;
+    })
+    .addMatcher(multipleActionTypeMatcher([getHits.rejected, clearHits.rejected]), (state) => {
       state.requestError = 'При запросе возникла ошибка';
     });
 });
