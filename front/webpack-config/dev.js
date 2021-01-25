@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
@@ -17,7 +18,7 @@ module.exports = {
               '@babel/env',
               {
                 modules: false,
-                useBuiltIns: 'usage',
+                useBuiltIns: 'entry',
                 corejs: {
                   version: 3,
                   proposals: true,
@@ -31,6 +32,15 @@ module.exports = {
           ],
           plugins: ['react-hot-loader/babel'],
         },
+      },
+      {
+        test: /\.css$/,
+        use: [{
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            publicPath: '',
+          },
+        }, 'css-loader'],
       },
     ],
   },

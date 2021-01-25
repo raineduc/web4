@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Container } from '@chakra-ui/react';
 import { Header } from '../features/common/components/Header';
 import { AuthPanel, IfLoggedIn } from '../features/auth';

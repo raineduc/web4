@@ -1,8 +1,10 @@
+import 'core-js';
+import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { authSlice, logUser, registerUser } from './features/auth';
+import { authSlice } from './features/auth';
 import { gameReducer } from './features/game';
 import { App } from './App';
 import { makeServer } from './mock-server';
