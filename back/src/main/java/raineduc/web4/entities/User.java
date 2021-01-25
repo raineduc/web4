@@ -1,10 +1,11 @@
 package raineduc.web4.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user_profile")
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Integer id;

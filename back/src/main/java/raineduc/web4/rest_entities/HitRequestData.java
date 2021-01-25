@@ -2,26 +2,34 @@ package raineduc.web4.rest_entities;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import raineduc.web4.utils.validation.InArray;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-public class Hit {
+public class HitRequestData {
     @NotNull
     @Min(value = -2)
     @Max(value = 2)
-    private double x;
+    private Double x;
 
     @NotNull
     @Min(value = -5)
     @Max(value = 5)
-    private double y;
+    private Double y;
 
     @NotNull
-    @Min(value = 0)
-    @Max(value = 2)
-    private double radius;
+    @InArray(array = {0, 0.5, 1, 1.5, 2}, message = "The radius must be one of the values: 0, 0.5, 1, 1.5, 2")
+    private Double radius;
+
+    public HitRequestData() {}
+
+    public HitRequestData(double x, double y, double radius) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+    }
 
     @JsonGetter("x-coord")
     public double getX() {
@@ -42,7 +50,7 @@ public class Hit {
         this.x = x;
     }
 
-    @JsonSetter("x-coord")
+    @JsonSetter("y-coord")
     public void setY(double y) {
         this.y = y;
     }

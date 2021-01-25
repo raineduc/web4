@@ -4,7 +4,7 @@ import com.sun.istack.Nullable;
 import raineduc.web4.entities.User;
 
 public interface AuthDAO {
-    User findUser(String login);
     @Nullable
+    User findUser(String login);
     void addUser(User user);
 }
