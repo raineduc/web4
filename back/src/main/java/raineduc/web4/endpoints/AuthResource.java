@@ -46,8 +46,6 @@ public class AuthResource {
             return Response.ok().build();
         } catch (AuthException e) {
             return Response.status(BAD_REQUEST).entity(new ValidationError(e.getMessage(), e.getField())).build();
-        } catch (InternalError e) {
-            return Response.status(INTERNAL_SERVER_ERROR).entity(new CommonError("Something went wrong on the server")).build();
         }
     }
 
@@ -62,8 +60,6 @@ public class AuthResource {
             return Response.ok().build();
         } catch (AuthException e) {
             return Response.status(BAD_REQUEST).entity(new ValidationError(e.getMessage(), e.getField())).build();
-        } catch (InternalError e) {
-            return Response.status(INTERNAL_SERVER_ERROR).entity(new CommonError("Something went wrong on the server")).build();
         }
     }
 }
