@@ -12,6 +12,9 @@ const PaginatorButton = ({ children, ...props }) => (
 export const Paginator = ({ pageCount, pageRange, onPageChange }) => {
   const [currentPage, changePage] = useState(1);
   const buttons = useMemo(() => {
+    if (pageCount < currentPage) {
+      changePage(pageCount);
+    }
     const pages = [];
     const margin = Math.max(Math.floor(pageRange / 2), 0);
     const startIndex = Math.min(Math.max(currentPage - margin, 1), Math.max(pageCount - pageRange + 1, 1));

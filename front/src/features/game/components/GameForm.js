@@ -20,7 +20,7 @@ import { Card } from '$ui/components/Card';
 import { sendHit } from '../logic/game';
 import { validateMessages } from '../logic/validate-messages';
 
-const xValues = ['-2', '-1.5', '-1', '-0.5', '0', '0.5', '1', '1.5', '2'];
+const xValues = ['0', '0.5', '1', '1.5', '2'];
 const radiusValues = xValues;
 
 const GameListBox = styled(ListBox)`
@@ -56,7 +56,7 @@ export const GameForm = () => {
         <GameListBox
           options={xValues}
           value={watchXCoord}
-          onChange={(e) => setValue('x-coord', e.value, { shouldValidate: true })}
+          onChange={(e) => setValue('x-coord', e.value && parseFloat(e.value, 10), { shouldValidate: true })}
         />
         <FormErrorMessage>
           {(errors['x-coord'] && errors['x-coord'].message)
@@ -92,7 +92,7 @@ export const GameForm = () => {
         <GameListBox
           options={radiusValues}
           value={watchRadius}
-          onChange={(e) => setValue('radius', e.value, { shouldValidate: true })}
+          onChange={(e) => setValue('radius', e.value && parseFloat(e.value, 10), { shouldValidate: true })}
         />
         <FormErrorMessage>
           {(errors.radius && errors.radius.message)

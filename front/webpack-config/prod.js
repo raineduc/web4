@@ -1,4 +1,6 @@
 const WebpackModernBuildPlugin = require('webpack-modern-build-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const modernConfig = {
   entry: {
@@ -18,20 +20,16 @@ const modernConfig = {
                   '@babel/env',
                   {
                     modules: false,
-                    useBuiltIns: 'usage',
+                    loose: true,
+                    useBuiltIns: 'entry',
                     corejs: {
                       version: 3,
                       proposals: true,
                     },
                     targets: {
-                      browsers: [
-                        'Chrome >= 60',
-                        'Safari >= 10.1',
-                        'iOS >= 10.3',
-                        'Firefox >= 54',
-                        'Edge >= 15',
-                      ],
+                      esmodules: true,
                     },
+                    exclude: ['@babel/plugin-transform-async-to-generator', '@babel/plugin-transform-regenerator'],
                   },
                 ],
                 '@babel/preset-react',
@@ -40,19 +38,22 @@ const modernConfig = {
           },
         ],
       },
+      {
+        test: /\.css$/,
+        use: ['css-loader'],
+      },
     ],
   },
   plugins: [
     new WebpackModernBuildPlugin({
       mode: 'modern',
     }),
+    new BundleAnalyzerPlugin(),
   ],
 };
 
 const legacyConfig = {
-  entry: {
-    legacy: './src/index.js',
-  },
+  entry: './src/index.js',
   module: {
     rules: [
       {
@@ -67,7 +68,12 @@ const legacyConfig = {
                   '@babel/env',
                   {
                     modules: false,
-                    useBuiltIns: 'usage',
+                    useBuiltIns: 'entry',
+                    loose: true,
+                    corejs: {
+                      version: 3,
+                      proposals: true,
+                    },
                     targets: {
                       browsers: ['> 1%', 'last 2 versions', 'Firefox ESR'],
                     },
@@ -79,11 +85,26 @@ const legacyConfig = {
           },
         ],
       },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '',
+            },
+          },
+          'css-loader',
+        ],
+      },
     ],
   },
   plugins: [
     new WebpackModernBuildPlugin({
       mode: 'legacy',
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerPort: 8889,
     }),
   ],
 };

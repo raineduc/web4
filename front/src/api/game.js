@@ -16,3 +16,7 @@ export const getUserHits = (limit, offset) => {
     method: 'GET',
   });
 };
+
+export const clearUserHits = () => fetch('/api/game/hits/clear', {
+  method: 'POST',
+});

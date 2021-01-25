@@ -9,38 +9,17 @@ const { modernConfig, legacyConfig } = require('./webpack-config/prod');
 
 const commonConfig = {
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../back', './src/main/webapp'),
     filename: 'js/[name].[chunkhash:8].js',
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /(node_modules|bower_components)/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/env', '@babel/preset-react'],
-            },
-          },
-        ],
-      },
-      {
         test: /\.(png|jpe?g|gif)$/i,
         loader: 'file-loader',
         options: {
-          name: '[path][name].[ext]',
+          name: 'pictures/[name].[ext]',
         },
-      },
-      {
-        test: /\.css$/,
-        use: [{
-          loader: MiniCssExtractPlugin.loader,
-          options: {
-            publicPath: '',
-          },
-        }, 'css-loader'],
       },
     ],
   },
@@ -68,7 +47,7 @@ const clean = {
 
 module.exports = (env, argv) => {
   if (argv.mode === 'development') {
-    return merge([commonConfig, devConfig, clean]);
+    return merge([commonConfig, devConfig]);
   }
 
   if (argv.mode === 'production') {
