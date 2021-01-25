@@ -3,6 +3,7 @@ package raineduc.web4.endpoints;
 import raineduc.web4.beans.HitBean;
 import raineduc.web4.entities.Hit;
 import raineduc.web4.entities.User;
+import raineduc.web4.filters.auth.Protected;
 import raineduc.web4.rest_entities.HitRequestData;
 import raineduc.web4.rest_entities.HitResponseData;
 import raineduc.web4.rest_entities.Hits;
@@ -19,6 +20,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Protected
 @Path("/game")
 @Produces(MediaType.APPLICATION_JSON)
 public class GameResource {
