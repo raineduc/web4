@@ -62,4 +62,12 @@ public class AuthResource {
             return Response.status(BAD_REQUEST).entity(new ValidationError(e.getMessage(), e.getField())).build();
         }
     }
+
+    @POST
+    @Path("/logout")
+    public Response logout(@Context HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return Response.ok().build();
+    }
 }
