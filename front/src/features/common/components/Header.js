@@ -8,6 +8,8 @@ import {
   Image,
   Text,
   Button,
+  useMediaQuery,
+  useTheme,
 } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -59,13 +61,15 @@ export const Header = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const history = useHistory();
+  const theme = useTheme();
+  const [isLabInfoVisible] = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
 
   return (
     <Center
       as="header"
       bgColor="green.500"
       color="white"
-      fontSize={{ base: '1.1rem', md: '1.5rem' }}
+      fontSize={{ base: '1.1rem', md: '1.25rem', lg: '1.5rem' }}
       fontWeight="500"
       boxShadow="lg"
     >
@@ -87,7 +91,7 @@ export const Header = () => {
               Выйти
             </Button>
           )}
-          <LabInfo />
+          {isLabInfoVisible && <LabInfo />}
         </Flex>
       </Container>
     </Center>

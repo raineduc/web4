@@ -1,18 +1,18 @@
 import React from 'react';
-import { HStack } from '@chakra-ui/react';
+import { Stack } from '@chakra-ui/react';
 import { GameForm } from './GameForm';
 import { GameArea } from './GameArea';
 import { Card } from '$ui/components/Card';
 
 export const GameInteractions = () => (
   <>
-    <HStack spacing="20px" align="stretch">
-      <Card w="50%">
+    <Stack spacing="20px" align="stretch" direction={{ base: 'column', lg: 'row' }}>
+      <Card w={{ base: '100%', lg: '50%' }}>
         <GameForm />
       </Card>
-      <Card w="50%">
+      <Card w={{ base: '100%', lg: '50%' }}>
         <GameArea />
       </Card>
-    </HStack>
+    </Stack>
   </>
 );

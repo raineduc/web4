@@ -62,8 +62,9 @@ export const GameArea = () => {
           min={0}
           max={2}
           step={0.5}
+          size="lg"
           onChange={(val) => setRadius(val)}
-          maxWidth="350px"
+          maxWidth={{ base: '100%', lg: '350px', md: '75%' }}
           flexGrow="1"
         >
           <SliderTrack>

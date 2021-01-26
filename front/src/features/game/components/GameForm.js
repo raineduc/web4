@@ -14,6 +14,8 @@ import {
   SliderTrack,
   SliderFilledTrack,
   Button,
+  Box,
+  chakra,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Card } from '$ui/components/Card';
@@ -23,13 +25,20 @@ import { validateMessages } from '../logic/validate-messages';
 const xValues = ['0', '0.5', '1', '1.5', '2'];
 const radiusValues = xValues;
 
-const GameListBox = styled(ListBox)`
-  max-width: 300px;
-  max-height: 150px;
-  font-size: 0.85em;
-  line-height: ${({ theme }) => theme.lineHeights.shorter};
-  overflow: auto;
-`;
+const ChakraListBox = chakra(ListBox);
+
+const GameListBox = ({ children, ...props }) => (
+  <ChakraListBox
+    maxW={{ base: '100%', lg: '300px', md: '75%' }}
+    maxH={{ base: '250px', lg: '150px' }}
+    fontSize="0.85em"
+    lineHeight={{ base: 'base', lg: 'shorter' }}
+    overflow="auto"
+    {...props}
+  >
+    {children}
+  </ChakraListBox>
+);
 
 export const GameForm = () => {
   const dispatch = useDispatch();
@@ -44,19 +53,36 @@ export const GameForm = () => {
   const watchXCoord = watch('x-coord', null);
   const watchYCoord = watch('y-coord', -5);
   const watchRadius = watch('radius', null);
-  const sliderCallback = useCallback(throttle((val) => setValue('y-coord', val), 100), []);
+  const sliderCallback = useCallback(
+    throttle((val) => setValue('y-coord', val), 100),
+    [],
+  );
   const onSubmit = (data) => {
     dispatch(sendHit(data));
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl id="game-form__x-coord" isRequired isInvalid={errors['x-coord']}>
-        <FormLabel>Выберите X координату:</FormLabel>
-        <Input name="x-coord" type="hidden" ref={register({ required: validateMessages['x-coord'].required })} />
+    <Box
+      as="form"
+      onSubmit={handleSubmit(onSubmit)}
+      fontSize={{ base: '1.25rem', lg: '1rem' }}
+    >
+      <FormControl
+        id="game-form__x-coord"
+        isRequired
+        isInvalid={errors['x-coord']}
+      >
+        <FormLabel fontSize="1em">Выберите X координату:</FormLabel>
+        <Input
+          name="x-coord"
+          type="hidden"
+          ref={register({ required: validateMessages['x-coord'].required })}
+        />
         <GameListBox
           options={xValues}
           value={watchXCoord}
-          onChange={(e) => setValue('x-coord', e.value && parseFloat(e.value, 10), { shouldValidate: true })}
+          onChange={(e) => setValue('x-coord', e.value && parseFloat(e.value, 10), {
+            shouldValidate: true,
+          })}
         />
         <FormErrorMessage>
           {(errors['x-coord'] && errors['x-coord'].message)
@@ -64,7 +90,7 @@ export const GameForm = () => {
         </FormErrorMessage>
       </FormControl>
       <FormControl id="game-form__y-coord" isRequired mt="15px">
-        <FormLabel>Выберите Y координату:</FormLabel>
+        <FormLabel fontSize="1em">Выберите Y координату:</FormLabel>
         <Input name="y-coord" type="hidden" ref={register} />
         <HStack spacing="15px">
           <Slider
@@ -74,7 +100,8 @@ export const GameForm = () => {
             max={5}
             step={0.01}
             onChange={sliderCallback}
-            maxWidth="350px"
+            size="lg"
+            maxWidth={{ base: '100%', lg: '350px' }}
           >
             <SliderTrack>
               <SliderFilledTrack />
@@ -86,22 +113,33 @@ export const GameForm = () => {
           </Card>
         </HStack>
       </FormControl>
-      <FormControl id="game-form__radius" isRequired isInvalid={errors.radius} mt="15px">
-        <FormLabel>Выберите радиус:</FormLabel>
-        <Input name="radius" type="hidden" ref={register({ required: validateMessages.radius.required })} />
+      <FormControl
+        id="game-form__radius"
+        isRequired
+        isInvalid={errors.radius}
+        mt="15px"
+      >
+        <FormLabel fontSize="1em">Выберите радиус:</FormLabel>
+        <Input
+          name="radius"
+          type="hidden"
+          ref={register({ required: validateMessages.radius.required })}
+        />
         <GameListBox
           options={radiusValues}
           value={watchRadius}
-          onChange={(e) => setValue('radius', e.value && parseFloat(e.value, 10), { shouldValidate: true })}
+          onChange={(e) => setValue('radius', e.value && parseFloat(e.value, 10), {
+            shouldValidate: true,
+          })}
         />
         <FormErrorMessage>
           {(errors.radius && errors.radius.message)
             || (dataError && dataError.field === 'radius' && dataError.error)}
         </FormErrorMessage>
       </FormControl>
-      <Button type="submit" mt="5" colorScheme="teal">
+      <Button type="submit" mt="5" colorScheme="teal" fontSize="1em">
         Отправить
       </Button>
-    </form>
+    </Box>
   );
 };

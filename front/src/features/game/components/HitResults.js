@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  VStack, Flex, Table, Thead, Tbody, Tr, Th, Td, Button,
+  VStack, Flex, Table, Thead, Tbody, Tr, Th, Td, Button, Box,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { useSelector, useDispatch } from 'react-redux';
@@ -24,27 +24,29 @@ export const HitResults = () => {
   }, [lastPostedHit]);
 
   return (
-    <VStack marginTop="10px">
-      <Table variant="striped" colorScheme="green" lineHeight="1">
-        <Thead>
-          <Tr>
-            <Th>X</Th>
-            <Th>Y</Th>
-            <Th>Радиус</Th>
-            <Th paddingTop="0.5rem" paddingBottom="0.5rem">Попал</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {hits.map((hit, index) => (
-            <Tr key={index}>
-              <HitParam>{hit.x}</HitParam>
-              <HitParam>{hit.y}</HitParam>
-              <HitParam>{hit.radius}</HitParam>
-              <HitParam>{hit.hit ? 'Да' : 'Нет'}</HitParam>
+    <VStack marginTop="10px" width="100%">
+      <Box overflow="auto" flexShrink="0" width="100%">
+        <Table variant="striped" colorScheme="green" lineHeight="1">
+          <Thead>
+            <Tr>
+              <Th>X</Th>
+              <Th>Y</Th>
+              <Th>Радиус</Th>
+              <Th paddingTop="0.5rem" paddingBottom="0.5rem">Попал</Th>
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
+          </Thead>
+          <Tbody>
+            {hits.map((hit, index) => (
+              <Tr key={index}>
+                <HitParam>{hit.x}</HitParam>
+                <HitParam>{hit.y}</HitParam>
+                <HitParam>{hit.radius}</HitParam>
+                <HitParam>{hit.hit ? 'Да' : 'Нет'}</HitParam>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </Box>
       <Flex alignItems="center" position="relative">
         <Paginator pageCount={pageCount} pageRange={10} onPageChange={(page) => dispatch(getHits(page))} />
         <Button position="absolute" left="100%" ml="10px" colorScheme="teal" variant="outline" onClick={() => dispatch(clearHits())}>Очистить</Button>
